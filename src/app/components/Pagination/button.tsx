@@ -1,50 +1,44 @@
-import Button from 'components/Button';
-import React from 'react';
-import styled from 'styled-components';
+import React, { PropsWithChildren } from "react";
 
-interface ButtonPageProps {
-  disabled?: boolean;
-  onClick?: React.MouseEventHandler<HTMLButtonElement>;
+import styled from "@emotion/styled";
+
+interface ButtonProps {
+  isDisabled?: boolean;
+  isSelected?: boolean;
   color?: string;
-  fontWeight?: string;
+  onClick?: React.MouseEventHandler<HTMLButtonElement>;
 }
 
-const StyledButton = styled(Button)`
+const StyledButton = styled.button<Pick<ButtonProps, "color" | "isSelected">>`
   display: flex;
   justify-content: center;
   align-items: center;
+
+  width: 40px;
+  height: 40px;
   outline: none;
 
-  :hover {
-    background-color: #eeeeee;
-  }
-
-  :active {
-    background-color: #e6e6e6;
-  }
+  color: ${({ color }) => (color ? color : "black")};
+  font-weight: ${({ isSelected }) => (isSelected ? "bold" : "normal")};
 `;
 
-const ButtonPage: React.FunctionComponent<ButtonPageProps> = ({
-  disabled,
-  onClick,
+function Button({
+  isDisabled = false,
+  isSelected = false,
   color,
-  fontWeight,
+  onClick,
   children,
-}) => (
-  <StyledButton
-    width="40px"
-    height="40px"
-    padding="0"
-    borderRadius="50%"
-    bgColor="white"
-    color={color}
-    fontSize="18px"
-    fontWeight={fontWeight}
-    disabled={disabled}
-    onClick={onClick}
-  >
-    {children}
-  </StyledButton>
-);
+}: PropsWithChildren<ButtonProps>) {
+  return (
+    <StyledButton
+      color={color}
+      isSelected={isSelected}
+      disabled={isDisabled}
+      onClick={onClick}
+    >
+      {children}
+    </StyledButton>
+  );
+}
 
-export default ButtonPage;
+export default Button;
