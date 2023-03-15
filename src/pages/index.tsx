@@ -3,9 +3,15 @@ import Head from 'next/head';
 
 import Flow from '../components/Flow';
 
+import axios from 'axios'
+
+import https from 'https'
+
 import styles from '../styles/Home.module.css';
 
 const Home: NextPage = () => {
+  const { data } = axios.get('https://211.206.251.66:7000/Notice')
+
   return (
     <div className={styles.container}>
       <Head>
