@@ -1,17 +1,77 @@
 import type { NextPage } from 'next';
 import Head from 'next/head';
 
-import Flow from '../components/Flow';
-
-import axios from 'axios'
-
-import https from 'https'
 
 import styles from '../styles/Home.module.css';
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  Title,
+  Tooltip,
+  Legend,
+} from 'chart.js';
+import { Bar } from 'react-chartjs-2';
+
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  Title,
+  Tooltip,
+  Legend
+);
+
+export const options = {
+  plugins: {
+    title: {
+      display: true,
+      text: 'Chart.js Bar Chart - Stacked',
+    },
+  },
+  scales: {
+    x: {
+      stacked: true,
+    },
+    y: {
+      stacked: true,
+      ticks: {
+        stepSize: 20,
+        min: 0,
+        max: 100,
+        callback: function(value) {
+          return value + "%"
+        }
+      },
+      scaleLabel: {
+        display: true,
+        labelString: "Percentage"
+      }
+    },
+  },
+};
+
+const labels = ['10대', '20대', '30대', '40대', '50대', '60대', '70대', '80대', '90대', '100대'];
+
+export const data = {
+  labels,
+  datasets: [
+    {
+      label: '여성',
+      data: [10, 20, 30, 40, 15],
+      backgroundColor: 'rgb(255, 99, 132)',
+    },
+    {
+      label: '남성',
+      data: [1, 20, 30, 40, 50],
+      backgroundColor: 'rgb(75, 192, 192)',
+    },
+  ],
+};
 
 const Home: NextPage = () => {
-  const { data } = axios.get('https://211.206.251.66:7000/Notice')
-
+ 
   return (
     <div className={styles.container}>
       <Head>
@@ -21,7 +81,7 @@ const Home: NextPage = () => {
       </Head>
 
       <header className={styles.header}>React Flow - Next.js Example</header>
-      <Flow />
+      <Bar options={options} data={data} />
     </div>
   );
 };
