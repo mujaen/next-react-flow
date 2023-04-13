@@ -32,10 +32,10 @@ export const options = {
   },
   scales: {
     x: {
-      stacked: true,
+      stacked: false,
     },
     y: {
-      stacked: true,
+      stacked: false,
       ticks: {
         stepSize: 20,
         min: 0,
@@ -44,15 +44,14 @@ export const options = {
           return value + "%"
         }
       },
-      scaleLabel: {
-        display: true,
-        labelString: "Percentage"
-      }
+      afterDataLimits: (scale) => {
+        scale.max = 100;
+      },
     },
   },
 };
 
-const labels = ['10대', '20대', '30대', '40대', '50대', '60대', '70대', '80대', '90대', '100대'];
+const labels = ['10세', '20세', '30세', '40세', '50세', '60세', '70세', '80세', '90세', '100세'];
 
 export const data = {
   labels,
@@ -80,8 +79,8 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <header className={styles.header}>React Flow - Next.js Example</header>
-      <Bar options={options} data={data} />
+      
+      <Bar options={options} data={data} width="700px" height="320px" />
     </div>
   );
 };
