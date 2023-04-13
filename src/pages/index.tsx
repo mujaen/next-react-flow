@@ -24,6 +24,7 @@ ChartJS.register(
 );
 
 export const options = {
+  maxBarThickness: 20,
   plugins: {
     title: {
       display: true,
@@ -32,10 +33,10 @@ export const options = {
   },
   scales: {
     x: {
-      stacked: false,
+      stacked: true,
     },
     y: {
-      stacked: false,
+      stacked: true,
       ticks: {
         stepSize: 20,
         min: 0,
