@@ -47,6 +47,12 @@ export const options = {
       afterDataLimits: (scale) => {
         scale.max = 100;
       },
+      title: {
+        display: true,
+        align: 'end',
+        color: '#808080',
+        text: '비율: %'
+      }
     },
   },
 };
